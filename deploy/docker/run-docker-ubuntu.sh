@@ -23,6 +23,7 @@ docker build --file "${DOCKERFILE_PATH}" \
 # Run the Docker container with necessary permissions and volume mounts
 docker run \
   --rm \
+  --privileged \
   --cap-add SYS_ADMIN \
   --device /dev/fuse \
   --security-opt apparmor:unconfined \

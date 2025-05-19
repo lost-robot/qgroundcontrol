@@ -1,4 +1,5 @@
 # build
+git submodule update --init --recursive
 cd repo
 mkdir build
 ./deploy/docker/run-docker-ubuntu.sh
