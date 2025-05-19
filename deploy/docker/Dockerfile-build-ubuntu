@@ -12,6 +12,15 @@ ENV QT_DESKTOP $QT_PATH/${QT_VERSION}/gcc_64
 
 ENV PATH /usr/lib/ccache:$QT_DESKTOP/bin:$PATH
 
+# Create a non-root user and group inside the container with specified UID and GID
+ARG CONTAINER_UID
+ARG CONTAINER_GID
+ARG CONTAINER_USER
+RUN groupadd -r -g $CONTAINER_GID $CONTAINER_USER && \
+    useradd -r -g $CONTAINER_USER -u $CONTAINER_UID -m $CONTAINER_USER && \
+    usermod -aG dialout $CONTAINER_USER && \
+    usermod -aG video ${CONTAINER_USER}
+
 COPY tools/setup/install-dependencies-debian.sh /tmp/qt/
 RUN /tmp/qt/install-dependencies-debian.sh
 
